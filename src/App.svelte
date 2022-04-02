@@ -1,44 +1,39 @@
 <script lang="ts">
+	import Participant from "./Participant.svelte"
 	let visible = true;
-	let audio = true;
+
+	let participantNames = [
+		"参加者(2)",
+		"参加者(3)",
+		"参加者(4)"
+	];
 </script>
+
 <div class="participant p1">
-	<span>参加者猫 (1) (自分)
-		{#if audio}
-			🔉
-		{:else}
-			🔇
-		{/if}
-	</span>
+	<span>参加者猫 (1) (自分) </span>
+	
 	{#if visible}
 	<img src="https://placekitten.com/320/240?image=1">
 	{:else}
 	<img src="https://via.placeholder.com/320x240/000000/FFFFFF/?text=Video%20OFF">
 	{/if}
 </div>
-<div class="participant">
-	<span>参加者猫 (2)</span>
-	<img src="https://placekitten.com/320/240?image=2">
-</div>
-<div class="participant">
-	<span>参加者猫 (3)</span>
-	<img src="https://placekitten.com/320/240?image=3">
-</div>
-<div class="participant">
-	<span>参加者猫 (4)</span>
-	<img src="https://placekitten.com/320/240?image=4">
-</div>
+
+{#each participantNames as name,index}
+	<Participant {name} catType={index} />
+{/each}
 <div class="list-of-participants">
 	<ul>
-		<li>参加者猫 (1) (自分)</li>
-		<li>参加者猫 (2)</li>
-		<li>参加者猫 (3)</li>
-		<li>参加者猫 (4)</li>
+		<li>参加者(1)(自分)</li>
+		{#each participantNames as name}
+			<li>{name}</li>
+		{/each}
+	
 	</ul>
 </div>
 <div class="control">
 	<button>退出</button>
-	<button on:click={()=> audio = !audio}>音声 OFF</button>
+	<button>音声 OFF</button>
 	<button on:click={()=>visible = !visible}>ビデオ ON/OFF</button>
 	<button>画面共有</button>
 </div>
